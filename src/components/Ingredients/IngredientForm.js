@@ -13,7 +13,7 @@ const IngredientForm = React.memo(props => {
     -------------------------------------------------- */
 
     // useState always returns an array with two elements:
-    // current state snapshot, and a function to update the currnet state
+    // current state snapshot, and a function to update the current state
 
     // const inputState =
     //     useState({
@@ -22,10 +22,14 @@ const IngredientForm = React.memo(props => {
     //     })
 
     // Array destructuring
-    const [ inputState, setInputState] = useState({ title: '', amount: '' })
+    // const [ inputState, setInputState] = useState({ title: '', amount: '' })
 
+    // Because useState doesn't require an object and doesn't merge state,
+    // It's better to use multiple states:
 
-
+    const [enteredTitle, setEnteredTitle]   = useState('')
+    const [enteredAmount, setEnteredAmount] = useState('')
+    
     const submitHandler = event => {
         event.preventDefault()
         // ...
@@ -33,7 +37,7 @@ const IngredientForm = React.memo(props => {
 
     // First element of the array is the snapshot of the current state
     // const { title, amount } = inputState[0]
-    const { title, amount } = inputState
+    // const { title, amount } = inputState
 
     return (
         <section className='ingredient-form'>
@@ -44,35 +48,46 @@ const IngredientForm = React.memo(props => {
                         <input
                             type='text'
                             id='title'
-                            value={title}
+                            // value={title}
+                            value={enteredTitle}
                             // Hooks DON'T merge the state, but 're-create' it !!!
                             // prevInputState allows us to access previous input state
                             onChange={event => {
                                 // creating a const, will help to bypass the closure:
                                 // React won't save and re-use the old event
-                                const newTitle = event.target.value
+                                // const newTitle = event.target.value
                                 // inputState[1](prevInputState => ({
-                                setInputState(prevInputState => ({
-                                title: newTitle,
-                                amount: prevInputState.amount,
-                            }))}} />
+                                // setInputState(prevInputState => ({
+                                //     title: newTitle,
+                                //     amount: prevInputState.amount,
+                                // }))
+
+                                // No inner closure
+
+                                setEnteredTitle(event.target.value)
+                            }} />
                     </div>
                     <div className='form-control'>
                         <label htmlFor='amount'>Amount</label>
                         <input
                             type='number'
                             id='amount'
-                            value={amount}
+                            // value={amount}
+                            value={enteredAmount}
                             onChange={event => {
                                 // creating a const, will help to bypass the closure:
                                 // React won't save and re-use the old event
                                 // Closure will happen on the new expression
-                                const newAmount = event.target.value
+                                // const newAmount = event.target.value
                                 // inputState[1](prevInputState => ({
-                                setInputState(prevInputState => ({
-                                    title: prevInputState.title,
-                                    amount: newAmount,
-                                }))
+                                // setInputState(prevInputState => ({
+                                //     title: prevInputState.title,
+                                //     amount: newAmount,
+                                // }))
+
+                                // No inner closure
+
+                                setEnteredAmount(event.target.value)
                             }} />
                     </div>
                     <div className='ingredient-form__actions'>
