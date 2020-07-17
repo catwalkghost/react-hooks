@@ -7,7 +7,7 @@ const Auth = props => {
     const loginHandler = () => {}
 
     return (
-        <div className="auth">
+        <div className='auth'>
             <Card>
                 <h2>You are not authenticated!</h2>
                 <p>Please log in to continue.</p>

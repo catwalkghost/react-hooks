@@ -5,7 +5,7 @@ import Search from './Search'
 
 function Ingredients() {
     return (
-        <div className="App">
+        <div className='App'>
             <IngredientForm />
 
             <section>
