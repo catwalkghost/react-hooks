@@ -1,19 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import IngredientForm from './IngredientForm'
+import IngredientList from './IngredientList'
+
 import Search from './Search'
 
-function Ingredients() {
+const Ingredients = (props) => {
+
+    const [userIngredients, setUserIngredients] = useState([]) // array is used because it's a list of ings
+
+    const addIngredientHandler = (ingredient) => {
+        setUserIngredients(prevIngredients => [
+            ...prevIngredients,
+            {
+                id: Math.random().toString(),
+                // Spread operator takes ALL key–value pairs from an old obj and adds them
+                // as key–value pairs to the new object
+                ...ingredient,
+            },
+        ])
+    }
+
     return (
         <div className='App'>
-            <IngredientForm />
+            <IngredientForm
+                onAddIngredient={addIngredientHandler}
+                onRemoveItem={() => {}} />
 
             <section>
                 <Search />
-                {/* Need to add list here! */}
+                <IngredientList ingredients={userIngredients} />
             </section>
         </div>
-    );
+    )
 }
 
 export default Ingredients;
