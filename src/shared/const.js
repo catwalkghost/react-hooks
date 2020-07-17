@@ -1,0 +1,1 @@
+export const DB_URL = 'https://react-hooks-b1b9f.firebaseio.com/'
